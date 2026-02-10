@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class LoanCollectionController extends Controller
 {
-    public function collectionList()
+    public function loanCollectionList()
     {
         $collections = LoanCollection::with(['customer', 'loan'])
             ->latest()
@@ -22,7 +22,7 @@ class LoanCollectionController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function collectionCreate(Request $request)
+    public function loanCollectionCreate(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'customer_id' => 'required|exists:customers,id',
@@ -60,7 +60,7 @@ class LoanCollectionController extends Controller
         ], Response::HTTP_BAD_REQUEST);
     }
 
-    public function collectionUpdate(Request $request)
+    public function loanCollectionUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'collection_id' => 'required|exists:loan_collections,id',
@@ -102,7 +102,7 @@ class LoanCollectionController extends Controller
         ], Response::HTTP_NOT_FOUND);
     }
 
-    public function collectionDetails(Request $request)
+    public function loanCollectionDetails(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'collection_id' => 'required|exists:loan_collections,id',
@@ -131,7 +131,7 @@ class LoanCollectionController extends Controller
         ], Response::HTTP_NOT_FOUND);
     }
 
-    public function collectionDelete(Request $request)
+    public function loanCollectionDelete(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'collection_id' => 'required|exists:loan_collections,id',
