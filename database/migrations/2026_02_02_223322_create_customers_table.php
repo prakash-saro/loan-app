@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-
+            $table->string('code')->unique();
             $table->string('name')->nullable();
             $table->string('email')->nullable()->index();
             $table->string('phone_number')->nullable()->index();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->boolean('is_active')->default(true);
             $table->softDeletes();
-            
+
             $table->timestamps();
         });
     }

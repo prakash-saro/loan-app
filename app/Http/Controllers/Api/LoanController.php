@@ -29,8 +29,11 @@ class LoanController extends Controller
             'customer_id'      => 'required|exists:customers,id',
             'loan_amount'      => 'required|numeric|min:0',
             'interest_amount'  => 'required|numeric|min:0',
+            'total_amount'     => 'required|numeric|min:0',
             'cycle'            => 'required|in:daily,weekly,monthly',
             'paying_amount'    => 'required|numeric|min:0',
+            'from_date'        => 'required|date',
+            'to_date'          => 'required|date|after_or_equal:from_date',
         ]);
 
         if ($validator->fails()) {
@@ -44,8 +47,11 @@ class LoanController extends Controller
             'customer_id'        => $request->customer_id ?? null,
             'loan_amount'        => $request->loan_amount ?? null,
             'interest_amount'    => $request->interest_amount ?? null,
+            'total_amount'       => $request->total_amount ?? null,
             'cycle'              => $request->cycle ?? null,
             'paying_amount'      => $request->paying_amount ?? null,
+            'from_date'          => $request->from_date ?? null,
+            'to_date'            => $request->to_date ?? null,
         ];
 
         $loan = Loan::create($input);
@@ -70,8 +76,11 @@ class LoanController extends Controller
             'customer_id'      => 'required|exists:customers,id',
             'loan_amount'      => 'required|numeric|min:0',
             'interest_amount'  => 'required|numeric|min:0',
+            'total_amount'     => 'required|numeric|min:0',
             'cycle'            => 'required|in:daily,weekly,monthly',
             'paying_amount'    => 'required|numeric|min:0',
+            'from_date'        => 'required|date',
+            'to_date'          => 'required|date|after_or_equal:from_date',
         ]);
 
         if ($validator->fails()) {
@@ -85,8 +94,11 @@ class LoanController extends Controller
             'customer_id'        => $request->customer_id ?? null,
             'loan_amount'        => $request->loan_amount ?? null,
             'interest_amount'    => $request->interest_amount ?? null,
+            'total_amount'       => $request->total_amount ?? null,
             'cycle'              => $request->cycle ?? null,
             'paying_amount'      => $request->paying_amount ?? null,
+            'from_date'          => $request->from_date ?? null,
+            'to_date'            => $request->to_date ?? null,
         ];
 
         $loan = Loan::find($request->loan_id);

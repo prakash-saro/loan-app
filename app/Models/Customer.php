@@ -14,12 +14,33 @@ class Customer extends Model
 
     protected $fillable = [
         'name',
+        'code',
         'email',
         'phone_number',
         'alternative_number',
         'address',
         'is_active',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($customer) {
+
+            if (!$customer->isForceDeleting()) {
+
+                $customer->loans()->each(function ($loan) {
+                    $loan->delete();
+                });
+            } else {
+
+                $customer->loans()->withTrashed()->each(function ($loan) {
+                    $loan->forceDelete();
+                });
+            }
+        });
+    }
 
     public function loans()
     {

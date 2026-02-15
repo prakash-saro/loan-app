@@ -4,17 +4,23 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Services\CommonService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
+    protected $commonService;
+
+    public function __construct(CommonService $commonService)
+    {
+        $this->commonService = $commonService;
+    }
+
     public function customerList()
     {
-        $customers = Customer::orderBy('name', 'ASC')
-            ->where('is_active', true)
-            ->get();
+        $customers = Customer::orderBy('name', 'ASC')->get();
 
         return response()->json([
             'success' => true,
@@ -40,6 +46,7 @@ class CustomerController extends Controller
         }
 
         $input = [
+            'code'               => $this->commonService->customerCode(),
             'name'               => $request->name ?? null,
             'email'              => $request->email ?? null,
             'phone_number'       => $request->phone_number ?? null,

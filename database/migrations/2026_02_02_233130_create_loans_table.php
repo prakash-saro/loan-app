@@ -17,8 +17,11 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
             $table->decimal('loan_amount', 12, 2);
             $table->decimal('interest_amount', 12, 2);
+            $table->decimal('total_amount', 12, 2);
             $table->enum('cycle', ['daily', 'weekly', 'monthly']);
             $table->decimal('paying_amount', 12, 2);
+            $table->date('from_date');
+            $table->date('to_date');
             $table->boolean('is_active')->default(true);
             $table->softDeletes();
 
